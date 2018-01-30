@@ -7,3 +7,12 @@
 [submodule "src/state_machine"]
 	path = src/state_machine
 	url = https://github.com/utahrobotics/state_machine.git
+[submodule "src/joystick"]
+	path = src/joystick
+	url = https://github.com/utahrobotics/joystick.git
+[submodule "src/teleop_contol"]
+	path = src/teleop_contol
+	url = https://github.com/utahrobotics/teleop_contol.git
+[submodule "src/teleop_control"]
+	path = src/teleop_control
+	url = https://github.com/utahrobotics/teleop_control.git
