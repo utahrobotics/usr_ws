@@ -1,0 +1,8 @@
+# this is in /etc/udev/rules.d
+#This file sets the udev rules for all of the FTDI chips. Each FTDI is uniquely identified by its serial number.
+#You can get the info for another device by using lsusb -v.
+#once a device is added to this file, it can be accessed by from /dev/<Whatever you put for the SYMLINK argument>
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="A50285BI", MODE=="0666", SYMLINK+="ROBOCLAW"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="DEADBEEF", MODE=="0666", SYMLINK+="backup_imu"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="AH00SC1I", MODE=="0666", SYMLINK+="IMU"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="A50285B1", MODE=="0666", SYMLINK+="transducer"
