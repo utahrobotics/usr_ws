@@ -1,12 +1,12 @@
 jetson:
 	catkin_make -DCATKIN_BLACKLIST_PACKAGES="amee_2dnav;amee_gazebo;emcee_navigation;usr_zed;"
 anon_git:
-	git config user.name "JETSON TX2"
-	git config user.email "utahrobotics@gmail.com"
+	git config --global user.name "JETSON TX2"
+	git config --global user.email "utahstudentrobotics@gmail.com"
 matt_git:
-	git config user.name "Matthew Wilson"
-	git config user.email "mattwilsonmbw@gmail.com"
+	git config --global user.name "Matthew Wilson"
+	git config --global user.email "mattwilsonmbw@gmail.com"
 cole:
-	git config user.name "Cole Mortensen"
-	git config user.email "colemortensen@gmail.com"
+	git config --global user.name "Cole Mortensen"
+	git config --global user.email "colemortensen@gmail.com"
 
