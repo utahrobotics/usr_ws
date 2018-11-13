@@ -22,3 +22,6 @@
 [submodule "src/usr_launch"]
 	path = src/usr_launch
 	url = https://github.com/utahrobotics/usr_launch.git
+[submodule "src/pozyx_ros"]
+	path = src/pozyx_ros
+	url = https://github.com/utahrobotics/pozyx_ros
