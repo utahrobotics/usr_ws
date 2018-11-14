@@ -3,7 +3,7 @@ FROM ros:kinetic-robot
 # install packages
 RUN apt-get update && \
   apt-get -y install sudo && \
-  apt-get -y install screen
+  rm -rf /var/lib/apt/lists/*
 
 # Setup utahrobotics user
 RUN useradd -M --uid 1000 utahrobotics
@@ -20,6 +20,7 @@ USER utahrobotics
 # setup ros
 RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
 COPY . /tmp/usr_ws
+RUN cat ~/.bashrc
 WORKDIR /tmp/usr_ws
 RUN rosdep update && sudo rosdep install --rosdistro kinetic --from-path src --ignore-src -r -y
 
