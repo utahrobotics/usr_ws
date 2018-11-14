@@ -19,7 +19,7 @@ USER utahrobotics
 
 # setup ros
 RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
-COPY ./usr_ws /tmp/usr_ws
+COPY . /tmp/usr_ws
 WORKDIR /tmp/usr_ws
 RUN rosdep update && sudo rosdep install --rosdistro kinetic --from-path src --ignore-src -r -y
 
