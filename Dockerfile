@@ -2,8 +2,7 @@ FROM ros:kinetic-robot
 
 # install packages
 RUN apt-get update && \
-  apt-get -y install sudo && \
-  rm -rf /var/lib/apt/lists/*
+  apt-get -y install sudo
 
 # Setup utahrobotics user
 RUN useradd -M --uid 1000 utahrobotics
@@ -19,10 +18,13 @@ USER utahrobotics
 
 # setup ros
 RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
+
+RUN rosdep update
+
+# install dependencies for usr_ws
 COPY . /tmp/usr_ws
-RUN cat ~/.bashrc
 WORKDIR /tmp/usr_ws
-RUN rosdep update && sudo rosdep install --rosdistro kinetic --from-path src --ignore-src -r -y
+RUN sudo rosdep install --rosdistro kinetic --from-path src --ignore-src -r -y
 
 # prep for run
 WORKDIR /home/utahrobotics/usr_ws
