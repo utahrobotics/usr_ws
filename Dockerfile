@@ -4,6 +4,10 @@ FROM ros:kinetic-robot
 RUN apt-get update && \
   apt-get -y install sudo
 
+# install pip
+RUN curl https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py
+RUN python /tmp/get-pip.py
+
 # Setup utahrobotics user
 RUN useradd -M --uid 1000 utahrobotics
 RUN echo "utahrobotics ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
