@@ -13,5 +13,5 @@ john:
 	git config --global user.name "John Robe"
 	git config --global user.email "john@jrobe.me"
 vm:
-	catkin_make -DCATKIN_BLACKLIST_PACKAGES="zed_wrapper;usr_zed"
+	catkin_make -DCATKIN_BLACKLIST_PACKAGES="zed_wrapper"
 
