@@ -16,9 +16,6 @@
 [submodule "src/roboclaw_ros"]
 	path = src/roboclaw_ros
 	url = https://github.com/utahrobotics/roboclaw_ros.git
-[submodule "src/usr_zed"]
-	path = src/usr_zed
-	url = https://github.com/utahrobotics/usr_zed.git
 [submodule "src/usr_launch"]
 	path = src/usr_launch
 	url = https://github.com/utahrobotics/usr_launch.git
