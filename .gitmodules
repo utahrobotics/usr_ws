@@ -13,3 +13,6 @@
 [submodule "src/usr_launch"]
 	path = src/usr_launch
 	url = https://github.com/utahrobotics/usr_launch.git
+[submodule "src/motion_control"]
+	path = src/motion_control
+	url = https://github.com/utahrobotics/motion_control.git
