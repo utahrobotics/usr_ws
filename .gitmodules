@@ -1,9 +1,3 @@
-[submodule "src/aruco_pkgs"]
-	path = src/aruco_pkgs
-	url = https://github.com/utahrobotics/aruco_pkgs.git
-[submodule "src/usr_simulation"]
-	path = src/usr_simulation
-	url = https://github.com/utahrobotics/usr_simulation.git
 [submodule "src/state_machine"]
 	path = src/state_machine
 	url = https://github.com/utahrobotics/state_machine.git
@@ -19,3 +13,6 @@
 [submodule "src/usr_launch"]
 	path = src/usr_launch
 	url = https://github.com/utahrobotics/usr_launch.git
+[submodule "src/motion_control"]
+	path = src/motion_control
+	url = https://github.com/utahrobotics/motion_control.git
