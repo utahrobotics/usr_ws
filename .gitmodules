@@ -16,3 +16,6 @@
 [submodule "src/motion_control"]
 	path = src/motion_control
 	url = https://github.com/utahrobotics/motion_control.git
+[submodule "src/odrive_ros"]
+	path = src/odrive_ros
+	url = https://github.com/utahrobotics/odrive_ros.git
