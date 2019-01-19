@@ -16,3 +16,6 @@
 [submodule "src/motion_control"]
 	path = src/motion_control
 	url = https://github.com/utahrobotics/motion_control.git
+[submodule "src/stepper_control"]
+	path = src/stepper_control
+	url = https://github.com/utahrobotics/stepper_controller.git
