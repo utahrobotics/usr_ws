@@ -19,3 +19,6 @@
 [submodule "src/stepper_control"]
 	path = src/stepper_control
 	url = https://github.com/utahrobotics/stepper_controller.git
+[submodule "src/odrive_ros"]
+	path = src/odrive_ros
+	url = https://github.com/utahrobotics/odrive_ros.git
