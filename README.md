@@ -4,13 +4,13 @@ Top level workspace to hold all meta package and package repos
 
 
 Using this repo is not required to run the code.  You can clone all the sub-repos
-separately and place them wherever you want.  This repo just makes it easier to 
-pull and manage all of the sub-repos at once, and you could use it as your 
+separately and place them wherever you want.  This repo just makes it easier to
+pull and manage all of the sub-repos at once, and you could use it as your
 catkin_ws.
 
 
 This repo doesn't contain anything that important - essentially just pointers to all
-the other repos.  It uses git submodules, which are kind of a pain, but seem to be a 
+the other repos.  It uses git submodules, which are kind of a pain, but seem to be a
 good fit and are good to learn.
 
 # How to do stuff
@@ -77,8 +77,7 @@ git commit -m '<commit message>'
 git push
 ```
 
+## Additional Node Documentation
 
-
-
-
-
+### Zed
+See [this document](https://docs.google.com/document/d/1FfmyJrUSkt-5UIluGyUdXrSw1mTrPsxC6YVyUTOSYd8/edit?usp=sharing) in the shared Google Drive folder for information on interacting with Zed.
