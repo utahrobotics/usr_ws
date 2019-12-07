@@ -19,3 +19,6 @@
 [submodule "src/odrive_ros"]
 	path = src/odrive_ros
 	url = https://github.com/utahrobotics/odrive_ros.git
+[submodule "realsense-ros"]
+	path = realsense-ros
+	url = https://github.com/IntelRealSense/realsense-ros.git
