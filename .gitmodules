@@ -4,9 +4,6 @@
 [submodule "src/teleop_control"]
 	path = src/teleop_control
 	url = https://github.com/utahrobotics/teleop_control.git
-[submodule "src/zed-ros-wrapper"]
-	path = src/zed-ros-wrapper
-	url = https://github.com/stereolabs/zed-ros-wrapper.git
 [submodule "src/roboclaw_ros"]
 	path = src/roboclaw_ros
 	url = https://github.com/utahrobotics/roboclaw_ros.git
@@ -22,3 +19,6 @@
 [submodule "src/odrive_ros"]
 	path = src/odrive_ros
 	url = https://github.com/utahrobotics/odrive_ros.git
+[submodule "src/realsense-ros"]
+	path = src/realsense-ros
+	url = https://github.com/IntelRealSense/realsense-ros.git
