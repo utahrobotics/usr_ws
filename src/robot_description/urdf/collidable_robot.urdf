@@ -1,0 +1,224 @@
+<?xml version='1.0'?>
+<robot name="my_robot">
+  <gazebo>
+    <static>false</static>
+  </gazebo>
+
+<!-- specifying materials and colors of model-->
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+<!-- chassis description-->
+	<link name='base_link'>
+      <collision name='collision'>
+        <geometry>
+          <box size="1 .5 .5"/>
+        </geometry>
+        <origin xyz="0 0 .3" rpy="0 0 0"/>
+      </collision>
+
+      <visual name='visual'>
+        <geometry>
+          <box size="1 .5 .5"/>
+        </geometry>
+        <origin xyz="0 0 .3" rpy="0 0 0"/>
+        <material name="white"/>
+      </visual>
+  </link>
+
+    <!-- front right wheel description-->
+  <link name="fr_wheel">
+    
+    <collision name="collision">
+      <geometry>
+        <cylinder radius=".1" length=".05"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+    </collision>
+    <visual name="visual">
+      <geometry>
+        <cylinder radius=".1" length=".05"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <material name="blue"/>
+    </visual>
+    <!-- replace inertial values later-->
+    <inertial>
+      <mass value="3"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+  <joint type="continuous" name="fr_wheel_hinge">
+    <origin xyz=".4 .275 .1" rpy="0 0 0"/>
+    <child link="fr_wheel"/>
+    <parent link="base_link"/>
+    <axis xyz="0 1 0"/>
+	</joint>
+
+  <!-- descripton for the front left wheel-->
+  <link name="fl_wheel">
+    
+    <collision name="collision">
+      <geometry>
+        <cylinder radius=".1" length=".05"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+    </collision>
+    <visual name="visual">
+      <geometry>
+        <cylinder radius=".1" length=".05"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <material name="blue"/>
+    </visual>
+    <!-- replace inertial values later-->
+    <inertial>
+      <mass value="3"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+
+  <joint type="continuous" name="fl_wheel_hinge">
+      <origin xyz="0.4 -.275 .1" rpy="0 0 0"/>
+      <child link="fl_wheel"/>
+      <parent link="base_link"/>
+      <axis xyz="0 1 0"/>
+	</joint>
+
+  <!--back right wheel description-->
+  <link name="br_wheel">
+    <collision name="collision">
+      <geometry>
+        <cylinder radius=".1" length=".05"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+    </collision>
+    <visual name="visual">
+      <geometry>
+        <cylinder radius=".1" length=".05"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <material name="blue"/>
+    </visual>
+    <!-- replace inertial values later-->
+    <inertial>
+      <mass value="3"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+  <joint type="continuous" name="br_wheel_hinge">
+    <origin xyz="-0.4 .275 .1" rpy="0 0 0"/>
+    <child link="br_wheel"/>
+    <parent link="base_link"/>
+    <axis xyz="0 1 0"/>
+	</joint>
+
+  <!-- back left wheel description-->
+  <link name="bl_wheel">
+    <collision name="collision">
+      <geometry>
+        <cylinder radius=".1" length=".05"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+    </collision>
+    <visual name="visual">
+      <geometry>
+        <cylinder radius=".1" length=".05"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <material name="blue"/>
+    </visual>
+     <!-- replace inertial values later-->
+    <inertial>
+      <mass value="3"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+  <joint type="continuous" name="bl_wheel_hinge">
+      <origin xyz="-.4 -.275 .1" rpy="0 0 0"/>
+      <child link="bl_wheel"/>
+      <parent link="base_link"/>
+      <axis xyz="0 1 0"/>
+	</joint>
+
+
+  <!--specifying the depth camera-->
+  <link name="depth_camera_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size=".09 .025 .025"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size=".09 .025 .025"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value=".01" />
+      <inertia ixx=".001" ixy="0" ixz="0" iyy=".001" iyz="0" izz=".001" />
+    </inertial>
+  </link>
+
+  <joint name="dc_joint" type="fixed">
+    <axis xyz="0 1 0"/>
+    <origin xyz=".45 0 .6" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="depth_camera_link"/>
+  </joint>
+
+
+        <!--depth camera plugin-->
+  <gazebo reference="depth_camera_link">
+    <sensor name="depth_camera" type="depth">
+      <update_rate>20</update_rate>
+      <camera>
+        <horizontal_fov>1.047198</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.05</near>
+          <far>3</far>
+        </clip>
+      </camera>
+      <plugin name="depth_controller" filename="libgazebo_ros_openni_kinect.so">
+        <baseline>0.2</baseline>
+        <alwaysOn>true</alwaysOn>
+        <updateRate>1.0</updateRate>
+        <cameraName>realsense_ir</cameraName>
+        <imageTopicName>/realsense/depth/image_raw</imageTopicName>
+        <cameraInfoTopicName>/realsense/depth/camera_info</cameraInfoTopicName>
+        <depthImageTopicName>/realsense/depth/image_raw</depthImageTopicName>
+        <depthImageInfoTopicName>/realsense/depth/camera_info</depthImageInfoTopicName>
+        <pointCloudTopicName>/realsense/depth/points</pointCloudTopicName>
+        <frameName>base</frameName>
+        <pointCloudCutoff>0.1</pointCloudCutoff>
+        <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
+        <distortionK1>0.00000001</distortionK1>
+        <distortionK2>0.00000001</distortionK2>
+        <distortionK3>0.00000001</distortionK3>
+        <distortionT1>0.00000001</distortionT1>
+        <distortionT2>0.00000001</distortionT2>
+        <CxPrime>0</CxPrime>
+        <Cx>0</Cx>
+        <Cy>0</Cy>
+        <focalLength>0</focalLength>
+        <hackBaseline>0</hackBaseline>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+</robot>
+

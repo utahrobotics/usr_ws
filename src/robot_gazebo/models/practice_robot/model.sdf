@@ -1,0 +1,151 @@
+<?xml version='1.0'?>
+<sdf version='1.4'>
+  <model name="my_robot">
+	<static>false</static>
+	<link name='chassis'>
+        <pose>0 0 .3 0 0 0</pose>
+
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 .5 .5</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 .5 .5</size>
+            </box>
+          </geometry>
+        </visual>
+    </link>
+	<link name="fr_wheel">
+        <pose>0.4 .275 .1 0 1.5707 1.5707</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>.1</radius>
+              <length>.05</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>.1</radius>
+              <length>.05</length>
+            </cylinder>
+          </geometry>
+        </visual>
+      </link>
+	<link name="fl_wheel">
+        <pose>0.4 -.275 .1 0 1.5707 1.5707</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>.1</radius>
+              <length>.05</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>.1</radius>
+              <length>.05</length>
+            </cylinder>
+          </geometry>
+        </visual>
+      </link>
+	<link name="br_wheel">
+        <pose>-0.4 .275 .1 0 1.5707 1.5707</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>.1</radius>
+              <length>.05</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>.1</radius>
+              <length>.05</length>
+            </cylinder>
+          </geometry>
+        </visual>
+      </link>
+	<link name="bl_wheel">
+        <pose>-0.4 -.275 .1 0 1.5707 1.5707</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>.1</radius>
+              <length>.05</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>.1</radius>
+              <length>.05</length>
+            </cylinder>
+          </geometry>
+        </visual>
+      </link>
+	<joint type="revolute" name="fr_wheel_hinge">
+		<pose>0 0 0.03 0 0 0</pose>
+        <child>fr_wheel</child>
+        <parent>chassis</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+        </axis>	
+	</joint>
+	<joint type="revolute" name="fl_wheel_hinge">
+		<pose>0 0 0.03 0 0 0</pose>
+        <child>fl_wheel</child>
+        <parent>chassis</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+        </axis>	
+	</joint>
+	<joint type="revolute" name="br_wheel_hinge">
+		<pose>0 0 0.03 0 0 0</pose>
+        <child>br_wheel</child>
+        <parent>chassis</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+        </axis>	
+	</joint>
+	<joint type="revolute" name="bl_wheel_hinge">
+		<pose>0 0 0.03 0 0 0</pose>
+        <child>bl_wheel</child>
+        <parent>chassis</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+        </axis>	
+	</joint>
+	 <joint type="revolute" name="right_wheel_hinge">
+        <pose>0 0 0.03 0 0 0</pose>
+        <child>fr_wheel</child>
+        <parent>chassis</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+        </axis>
+      </joint>
+
+	<!-- adding sensors to the robot-->
+	<include>
+      <uri>model://depth_camera</uri>
+      <pose>0.2 0 0.5 0 0 0</pose>
+    </include>
+    <joint name="dp_joint" type="fixed">
+      <child>depth_camera::link</child>
+      <parent>chassis</parent>
+    </joint>
+  </model>
+</sdf>
