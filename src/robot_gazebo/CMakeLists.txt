@@ -163,6 +163,15 @@ include_directories(
 #   ${catkin_LIBRARIES}
 # )
 
+##Compile gazebo plugins
+find_package(gazebo REQUIRED)
+include_directories(${GAZEBO_INCLUDE_DIRS})
+link_directories(${GAZEBO_LIBRARY_DIRS})
+list(APPEND CMAKE_CXX_FLAGS "${GAZEBO_CXX_FLAGS}")
+
+add_library(set_model_velocity SHARED plugins/set_model_velocity.cpp)
+target_link_libraries(set_model_velocity ${GAZEBO_LIBRARIES})
+
 #############
 ## Install ##
 #############

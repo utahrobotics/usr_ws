@@ -177,6 +177,11 @@
   </joint>
 
   <!--plugins-->
+        <!--joy control-->
+  <gazebo>
+    <plugin name="drive_controller" filename="libset_model_velocity.so">
+    </plugin>
+  </gazebo>
         <!--depth camera plugin-->
   <gazebo reference="depth_camera_link">
     <sensor name="depth_camera" type="depth">
