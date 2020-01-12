@@ -19,16 +19,24 @@
         <geometry>
           <box size="1 .5 .5"/>
         </geometry>
-        <origin xyz="0 0 .3" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
       </collision>
 
       <visual name='visual'>
         <geometry>
           <box size="1 .5 .5"/>
         </geometry>
-        <origin xyz="0 0 .3" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <material name="white"/>
       </visual>
+      <gazebo>
+        <friction>
+          <ode>
+            <mu>0.00</mu>
+            <mu2>0.00</mu2>
+          </ode>
+        </friction>
+      </gazebo>
   </link>
 
     <!-- front right wheel description-->
@@ -148,7 +156,7 @@
 
 
   <!--specifying the depth camera-->
-  <link name="depth_camera_link">
+  <link name="camera_link">
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -173,7 +181,7 @@
     <axis xyz="0 1 0"/>
     <origin xyz=".45 0 .6" rpy="0 0 0"/>
     <parent link="base_link"/>
-    <child link="depth_camera_link"/>
+    <child link="camera_link"/>
   </joint>
 
   <!--plugins-->
@@ -183,7 +191,7 @@
     </plugin>
   </gazebo>
         <!--depth camera plugin-->
-  <gazebo reference="depth_camera_link">
+  <gazebo reference="camera_link">
     <sensor name="depth_camera" type="depth">
       <update_rate>20</update_rate>
       <camera>
@@ -202,13 +210,13 @@
         <baseline>0.2</baseline>
         <alwaysOn>true</alwaysOn>
         <updateRate>1.0</updateRate>
-        <cameraName>realsense_ir</cameraName>
-        <imageTopicName>/realsense/depth/image_raw</imageTopicName>
-        <cameraInfoTopicName>/realsense/depth/camera_info</cameraInfoTopicName>
-        <depthImageTopicName>/realsense/depth/image_raw</depthImageTopicName>
-        <depthImageInfoTopicName>/realsense/depth/camera_info</depthImageInfoTopicName>
-        <pointCloudTopicName>/realsense/depth/points</pointCloudTopicName>
-        <frameName>base</frameName>
+        <cameraName>camera_ir</cameraName>
+        <imageTopicName>/camera/color/image_raw</imageTopicName>
+        <cameraInfoTopicName>/camera/depth/camera_info</cameraInfoTopicName>
+        <depthImageTopicName>/camera/depth/image_raw</depthImageTopicName>
+        <depthImageInfoTopicName>/camera/depth/camera_info</depthImageInfoTopicName>
+        <pointCloudTopicName>/camera/depth/points</pointCloudTopicName>
+        <frameName>camera_link</frameName>
         <pointCloudCutoff>0.1</pointCloudCutoff>
         <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
         <distortionK1>0.00000001</distortionK1>
@@ -223,6 +231,15 @@
         <hackBaseline>0</hackBaseline>
       </plugin>
     </sensor>
+  </gazebo>
+  <!--odemetry data-->
+  <gazebo>
+    <plugin name="odom" filename="libgazebo_ros_p3d.so">
+      <frameName>world</frameName>
+      <bodyName>base_link</bodyName>
+      <topicName>odom</topicName>
+      <updateRate>30.0</updateRate>
+    </plugin>
   </gazebo>
 </robot>
 
