@@ -38,7 +38,7 @@ cd ../
 catkin_make
 
 #source the setup file for usr_ws on terminal startup
-
+echo "source `pwd`/devel/setup.bash" >> ~/.bashrc
 
 #finish up
 sudo apt autoremove
