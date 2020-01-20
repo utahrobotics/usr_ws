@@ -17,7 +17,7 @@ echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 
 #installing various dependencies used in the usr workstation
-sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
+sudo apt install catkin python-rosinstall python-rosinstall-generator python-wstool build-essential
 
 #install some package specific dependencies
 
@@ -27,8 +27,18 @@ sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C
 sudo add-apt-repository "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo bionic main" -u
 sudo apt-get install librealsense2-dkms librealsense2-utils librealsense2-dev
 
-#joy packages
-rosdep install joy
+#teleop packages
+sudo apt-get install ros-melodic-joy
+
+#navigation packages
+sudo apt install ros-melodic-rtabmap-ros
+
+#make the workstation
+cd ../
+catkin_make
+
+#source the setup file for usr_ws on terminal startup
+echo "source `pwd`/devel/setup.bash" >> ~/.bashrc
 
 #navigation packages
 sudo apt-get install ros-melodic-rtabmap-ros
