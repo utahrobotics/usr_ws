@@ -4,15 +4,71 @@
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find robot_gazebo)/worlds/robot.world"/> <!-- Note: the world_name is with respect to GAZEBO_RESOURCE_PATH environmental variable -->
   </include>
-  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find robot_description)/urdf/robot.urdf -urdf -x 0 -y 0 -z 1 -model robot" />
+
+  <!--get the robot description from urdf to the ros param server-->
+  <param name="robot_description" command="$(find xacro)/xacro.py $(find robot_description)/urdf/test.urdf.xacro" />
+
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model robot" />
   
-  
-  <param name="robot_description" value="$(find robot_description)/urdf/robot.urdf" />
-  <param name="robot_description" command="$(find xacro)/xacro.py $(find robot_description)/urdf/robot.urdf" />
   <!-- Robot_state_publisher: needed for all the tf transformations -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
       <param name="publish_frequency" type="double" value="20" />
   </node>
+
+  <group ns="rtabmap">
+      <node pkg="nodelet" type="nodelet" name="rgbd_sync" args="standalone rtabmap_ros/rgbd_sync" output="screen">
+         <remap from="rgb/image"       to="/camera/color/image_raw"/>
+          <remap from="depth/image"     to="/camera/depth/image_raw"/>
+          <remap from="rgb/camera_info" to="/camera/color/camera_info"/>
+          <remap from="rgbd_image"      to="rgbd_image"/> 
+
+        <param name="approx_sync"       value="true"/> 
+      </node>
+      <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="--delete_db_on_start">
+          <param name="frame_id" type="string" value="base_link"/>
+
+          <param name="subscribe_depth" type="bool" value="false"/>
+          <param name="subscribe_rgbd" type="bool" value="true"/>
+          <param name="subscribe_scan" type="bool" value="false"/>
+
+          <remap from="rgb/image"       to="/camera/color/image_raw"/>
+          <remap from="depth/image"     to="/camera/depth/image_raw"/>
+          <remap from="rgb/camera_info" to="/camera/color/camera_info"/>
+          <remap from="rgbd_image"      to="rgbd_image"/> <!-- output -->
+          
+          <!-- Should be true for not synchronized camera topics 
+              (e.g., false for kinectv2, zed, realsense, true for xtion, kinect360)-->
+          <param name="approx_sync"       value="true"/> 
+
+          <remap from="odom" to="/base_controller/odom"/>
+          <remap from="scan" to="/base_scan"/>
+          <remap from="rgbd_image" to="rgbd_image"/>
+
+          <param name="queue_size" type="int" value="50"/>
+
+          <!-- RTAB-Map's parameters -->
+          <param name="RGBD/NeighborLinkRefining" type="string" value="true"/>
+          <param name="RGBD/ProximityBySpace"     type="string" value="true"/>
+          <param name="RGBD/AngularUpdate"        type="string" value="0.01"/>
+          <param name="RGBD/LinearUpdate"         type="string" value="0.01"/>
+          <param name="RGBD/OptimizeFromGraphEnd" type="string" value="false"/>
+          <param name="Grid/FromDepth"            type="string" value="false"/> <!-- occupancy grid from lidar -->
+          <param name="Reg/Force3DoF"             type="string" value="true"/>
+          <param name="Reg/Strategy"              type="string" value="1"/> <!-- 1=ICP -->
+      </node>
+
+      <!--launch rviz for viewing the rtabmap constructed map-->
+      <node pkg="rviz" type="rviz" name="rviz"/>
+
+      <!-- Construct and voxelize the point cloud (for fast visualization in rviz) -->
+      <node pkg="nodelet" type="nodelet" name="points_xyzrgb" args="standalone rtabmap_ros/point_cloud_xyzrgb">
+        <remap from="rgbd_image"      to="/rtabmap/rgbd_image/compressed"/>
+        <remap from="cloud"           to="voxel_cloud" />
+
+        <param name="queue_size" type="int" value="10"/>
+        <param name="voxel_size" type="double" value="0.01"/>
+      </node>
+  </group>
 
  
 </launch>

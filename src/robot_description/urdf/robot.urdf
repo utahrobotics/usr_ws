@@ -235,8 +235,8 @@
   <!--odemetry data-->
   <gazebo>
     <plugin name="odom" filename="libgazebo_ros_p3d.so">
-      <frameName>world</frameName>
-      <bodyName>base_link</bodyName>
+      <frameName>base_link</frameName>
+      <bodyName>chassis</bodyName>
       <topicName>odom</topicName>
       <updateRate>30.0</updateRate>
     </plugin>

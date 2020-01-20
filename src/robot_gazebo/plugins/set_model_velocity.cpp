@@ -20,6 +20,9 @@ namespace gazebo
     private: ros::Subscriber sub;
     private: ros::NodeHandle n;
 
+    private: ignition::math::Vector3d update_vel;
+    private: ignition::math::Vector3d update_ang;
+
     public: SetVelocityPlugin() : ModelPlugin(){
         printf("loading drive plugin\n");
         this->sub = n.subscribe("/cmd_vel", 5, &SetVelocityPlugin::changeVel, this);
@@ -34,6 +37,10 @@ namespace gazebo
             return;
         }
 
+        //initialize update vectors
+        this->update_vel = ignition::math::Vector3d(0, 0, 0);
+        this->update_ang = ignition::math::Vector3d(0, 0, 0);
+
         //initialize listener node
         this->model = _model;
         this->updateConnection = event::Events::ConnectWorldUpdateBegin(
@@ -43,11 +50,12 @@ namespace gazebo
     public: void Update(const common::UpdateInfo &_info)
       {
         //set the linear velocity of the link
-        //this->model->SetLinearVel(ignition::math::Vector3d(1.0, 0.0, 0.0));
+        this->model->SetLinearVel(this->update_vel);
+        this->model->SetAngularVel(this->update_ang);
     };
     public: void changeVel(const geometry_msgs::Twist& msg){
-        this->model->SetLinearVel(ignition::math::Vector3d(msg.linear.x, msg.linear.y, msg.linear.z));
-        this->model->SetAngularVel(ignition::math::Vector3d(0, 0, msg.angular.z));
+        this->update_vel = ignition::math::Vector3d(msg.linear.x, msg.linear.y, msg.linear.z);
+        this->update_ang = ignition::math::Vector3d(0, 0, msg.angular.z);
 
     }
   };

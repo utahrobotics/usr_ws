@@ -30,6 +30,9 @@ sudo apt-get install librealsense2-dkms librealsense2-utils librealsense2-dev
 #joy packages
 rosdep install joy
 
+#navigation packages
+sudo apt-get install ros-melodic-rtabmap-ros
+
 #setting up gazebo
 ./setup_gazebo.sh
 
