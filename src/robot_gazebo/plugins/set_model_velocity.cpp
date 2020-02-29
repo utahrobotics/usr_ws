@@ -6,6 +6,7 @@
 #include <gazebo/common/Plugin.hh>
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
+#include <math.h>
 
 namespace gazebo
 {
@@ -52,10 +53,17 @@ namespace gazebo
         //set the linear velocity of the link
         this->model->SetLinearVel(this->update_vel);
         this->model->SetAngularVel(this->update_ang);
+        this->model->GetWorld()->Physics()->UpdatePhysics();
     };
     public: void changeVel(const geometry_msgs::Twist& msg){
-        this->update_vel = ignition::math::Vector3d(msg.linear.x, msg.linear.y, msg.linear.z);
-        this->update_ang = ignition::math::Vector3d(0, 0, msg.angular.z);
+        //only change coordinates in the xy plane to preserve the effects of gravity
+        ignition::math::Vector3d gravity = this->model->GetWorld()->Gravity();
+        ignition::math::Vector3d model_world_vel = this->model->WorldLinearVel();
+        ignition::math::Vector3d model_relative_vel = this->model->RelativeLinearVel();
+        double z_comp = -1*fabs(model_world_vel.Z() - model_relative_vel.Dot(gravity.Normalize()));
+
+        
+        this->update_vel = ignition::math::Vector3d(msg.linear.x, msg.linear.y, z_comp);
 
     }
   };
